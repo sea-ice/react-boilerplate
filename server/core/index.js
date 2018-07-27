@@ -4,11 +4,13 @@ let path = require('path')
 let fs = require('fs')
 
 class KoaPlus extends Koa {
-  constructor () {
+  constructor (config) {
     super()
     if (!this.controllers) {
       KoaPlus.prototype.controllers = this.loadControllers()
     }
+    let {usePlugins} = config
+    if (usePlugins) this.loadPlugins()
   }
   loader (dirname) {
     let dir = path.resolve(__dirname, '..', dirname)
@@ -26,6 +28,16 @@ class KoaPlus extends Koa {
   }
   loadControllers () {
     return this.loader('controllers')
+  }
+  loadPlugins () {
+    let dir = path.resolve(__dirname, '..', 'plugins')
+    let files = fs.readdirSync(dir)
+    if (files.length) {
+      files.forEach(pluginDir => {
+        let {plugin} = require(path.resolve(dir, pluginDir))
+        plugin(this)
+      })
+    }
   }
   setRoutes () {
     let routes = require('../routes')(this)

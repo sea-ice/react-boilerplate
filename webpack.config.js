@@ -5,19 +5,19 @@ let CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: {
-    'client': path.resolve(__dirname, './app/index.js')
+    'home': path.resolve(__dirname, './pages/Home/index.js')
   },
   output: {
     publicPath: '/',
-    path: path.resolve(__dirname, './build'),
+    path: path.resolve(__dirname, './dist'),
     filename: '[name].bundle.js'
   },
   devServer: {
     inline: true,
     hot: true,
+    port: 8080,
     publicPath: '/',
-    contentBase: './build',
-    open: true
+    contentBase: './dist'
   },
   module: {
     rules: [{
@@ -46,8 +46,8 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin([{
-      from: './index.html',
-      to: path.resolve(__dirname, './build')
+      from: './assets',
+      to: path.resolve(__dirname, './dist/assets')
     }])
   ]
 }
