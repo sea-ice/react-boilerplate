@@ -14,7 +14,6 @@ export default class UserDetail extends React.Component {
     this.state = {
       showUser
     }
-    // console.log('userDetail construct')
   }
   getUserDetail (id) {
     let root = document.getElementById('root')
@@ -33,7 +32,7 @@ export default class UserDetail extends React.Component {
         </ul>
       )
     } else {
-      return <div></div>
+      return null
     }
   }
 }

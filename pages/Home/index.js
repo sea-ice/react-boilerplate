@@ -1,10 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
 
 import App from './components/App'
+import configureStore from './configureStore'
 
 let root = document.getElementById('root')
-let data = JSON.parse(root.dataset.cookData)
+let store = configureStore(window.initialState)
+
 ReactDOM.render(
-  <App {...data} />
-, document.getElementById('root'))
+  <Provider store={store}>
+    <App isServer={false} />
+  </Provider>
+, root)

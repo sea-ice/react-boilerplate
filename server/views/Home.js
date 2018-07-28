@@ -1,22 +1,17 @@
 import React from 'react'
+import {Provider} from 'react-redux'
 
-import Default from './layout/Default'
+import configureStore from '../../pages/Home/configureStore'
 import App from '../../pages/Home/components/App'
 
 export default class Home extends React.Component {
   render () {
-    let {metaData, data} = this.props
-    let saveData = JSON.stringify(data)
-    data.isServer = true
+    let {initialState, ...props} = this.props
+    let store = configureStore(initialState)
     return (
-      <Default {...metaData}>
-        <div
-          id="root"
-          data-cook-data={saveData}
-        >
-          <App {...data} />
-        </div>
-      </Default>
+      <Provider store={store}>
+        <App {...props} />
+      </Provider>
     )
   }
 }

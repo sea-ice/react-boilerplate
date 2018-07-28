@@ -17,14 +17,18 @@ module.exports = {
           '/style.css'
         ]
       },
-      data: {
-        userName: 'Jack',
+      initialState: {
+        user: {
+          name: 'Jack'
+        },
         users,
-        showUser,
+        showUser
+      },
+      appProps: {
         location: ctx.req.url
       }
     }, {
-      internals: false
+      internals: true
     })
   }
 }
